@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Table</title>
+</head>
+<body>
+    <!---Creating dynamic table with id dtable-->
+    <table id="dtable">
+    <!--creating table header with 3 column name, email and remove button-->
+        <thead>
+            <tr>
+                <!--3 columns with table header-->
+                <th>Name</th>
+                <th>Email</th>
+                <th>Action</th>
+            </tr>
+        </thead><!--Table headerc close-->
+        <tbody>
+            <!--declaring structure for 1 row which will be same for all
+            the row that will be added-->
+            <tr>
+                <!--note:name[] and email[] is taken as array since we are adding multiple rows
+                and reading name and email in the same-->
+                <td><input type="text" name="name[]"></td>
+                <td><input type="email" name="email[]"></td>
+                <!--removerow(this) is a function call to remove the currently pointed
+                row so (this) is used-->
+                <td><button type="button" onclick="removerow(this)">Remove</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <!--addrow() is a function to add rows to dynamic table-->
+<button type="button" onclick="addrow()">Add Row</button>
+
+<script>
+    //addrow function definition
+    function addrow() {
+        //.getElementById("dtable") :connect to dynamic table with id dtable
+        //getElementByTagName('tbody'); in the table we are adding row to the
+        /*.getElementsByTagName('tbody')[0]: in the table body we are
+        considering first row([0] index)*/
+        var table = document.getElementById("dtable").getElementsByTagName('tbody')[0];
+        //creating structure of the row with 3 cells
+        var newRow = table.insertRow(table.rows.length);
+        /*cell: first row 1 column cell2:first row 2nd column
+        cell3:first row 3rd column*/
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+
+        cell1.innerHTML = '<input type="text" name="name[]">';
+        cell2.innerHTML = '<input type="email" name="email[]">';
+        cell3.innerHTML = '<button type="button" onclick="removerow(this)">Remove</button>';
+    }
+    
+    //remove function definition
+    function removerow(button){
+        /*In var= button.parentNode.parentnode:
+        row=button.<tr>.<td> --- makes one complete row
+            thta needs to be removed*/
+
+            var selectedrow=button.parentNode.parentNode;
+            //selected row removal from the tbody
+            selectedrow.parentNode.removeChild(selectedrow);
+    }
+</script>
+</body>
+</html>
